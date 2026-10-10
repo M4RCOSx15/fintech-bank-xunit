@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FintechBank.App\FintechBank.App.csproj" />
+  </ItemGroup>
+
 </Project>

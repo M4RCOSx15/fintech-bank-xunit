@@ -1,31 +1,35 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace FintechBank.App
+namespace FintechBank.App;
+
+public class EmprestimoService
 {
-    public class EmprestimoService
+    public decimal CalcularValorParcela(
+        decimal valorTotal,
+        int parcelas,
+        int scoreCredito)
     {
-        public float CalcularValorParcela(decimal valorTotal, int parcelas, int scoreCredito)
+        decimal valorComJuros;
+
+        if (scoreCredito >= 700)
         {
-            if(scoreCredito >= 700)
-            {
-                return valorTotal * 1.05;
-            }
-            if(scoreCredito >=500 && scoreCredito <= 699)
-            {
-                return valorTotal * 1.12;
-            }
-            return (valorTotal * 1.20) / parcelas;
+            valorComJuros = valorTotal * 1.05m;
+        }
+        else if (scoreCredito >= 500)
+        {
+            valorComJuros = valorTotal * 1.12m;
+        }
+        else
+        {
+            valorComJuros = valorTotal * 1.20m;
         }
 
-        public bool AprovarEmprestimo(decimal rendaMensal, decimal valorParcela)
-        {
-            if(valorParcela <=rendaMensal * 0.30m)
-            {
-                return true;
-            }
-        }
+        return valorComJuros / parcelas;
+    }
+
+    public bool AprovarEmprestimo(
+        decimal rendaMensal,
+        decimal valorParcela)
+    {
+        return valorParcela <= rendaMensal * 0.30m;
     }
 }

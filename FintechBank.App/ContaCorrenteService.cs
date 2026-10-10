@@ -1,18 +1,30 @@
-namespace FintechBank.App
-{
 
-public class ContaCorrente{
-  
-  public string CalcularTaxaMannutencao(float saldo, bool clienteEspecial){
-   if(saldo >= 5000 || clienteEspecial == true)
+namespace FintechBank.App;
+
+public class ContaCorrenteService
+{
+    public decimal CalcularTaxaManutencao(
+        decimal saldo,
+        bool clienteEspecial)
     {
-        return "0.00m (isento)";
+        if (saldo >= 5000m || clienteEspecial)
+        {
+            return 0.00m;
+        }
+
+        if (saldo >= 1000m)
+        {
+            return 12.50m;
+        }
+
+        return 25.00m;
     }
-    if(saldo >= 1000)
+
+    public bool PodeRealizarSaque(
+        decimal saldo,
+        decimal limiteChequeEspecial,
+        decimal valorSaque)
     {
-      return "12.50m";
+        return valorSaque <= saldo + limiteChequeEspecial;
     }
-    return "25.00m";
-  }
-}
 }
